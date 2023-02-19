@@ -1,0 +1,8 @@
+* {
+    box-sizing: border-box;
+    margin: 1.5rem;
+}
+
+h1, h4 {
+    font-family: 'DM Serif Display', serif;
+}
