@@ -1,0 +1,12 @@
+.card-title {
+    font-family: 'DM Serif Display', serif;
+    color: #2B2F38;
+}
+
+img {
+    object-fit: fill;
+}
+
+.card-text {
+    color: #5D6167;
+}

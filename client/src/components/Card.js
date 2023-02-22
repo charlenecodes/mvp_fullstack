@@ -1,23 +1,22 @@
-import React from "react"
+import React from "react";
+import Button from "./Button";
+import "./Card.css";
 
-export default function Card({category, description}){
-    // if (category.toLowerCase() === "backpacker") {
-    //     img.src=""
-    // } else if (category.toLowerCase() === "budget") {
-    //     img.src=""
-    // } else if (category.toLowerCase() === "family") {
-    //     img.src=""
-    // }
+export default function Card({category, description, img}){
+
+    
 
     return(
         <>
-            <div className="card">
-                <h4>{category}</h4>
-                <p>
-                    {description}
-                </p>
+            <div className="card" style={{width: "18rem"}}>
+            <img src={img} className="card-img-top" alt={category}/>
+                <div className="card-body">
+                    <h4 className="card-title text-start">{category}</h4>
+                    <p className="card-text text-start">{description}</p>
+                    <Button></Button>
+                </div>
             </div>
-             
+   
         </>
     ) 
 }
