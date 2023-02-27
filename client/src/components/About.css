@@ -1,0 +1,10 @@
+a {
+    color: #FC5F5F;
+}
+
+a:hover {
+    color: RGB(235, 233, 241);
+    background-color: #FC5F5F;
+    font-weight: bold;
+    text-decoration: none;
+}

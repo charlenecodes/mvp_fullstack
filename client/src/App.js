@@ -5,14 +5,21 @@ import React from 'react';
 //   Link
 // } from 'react-router-dom';
 import './App.css';
+import CartButton from './components/CartButton';
 import Card from './components/Card';
 import Hero from './components/Hero';
 import Intro from './components/Intro';
+import About from './components/About';
 // import Button from './components/Button';
-// import About from "./components/About";
 // import Contact from "./components/Contact";
 
 function App() {
+  async function cartCounter() {
+    let response = awa
+    let count = CartButton.length;
+    return count;
+  }
+
   const backpacker = "On a day trip to Switzerland or penny-pinching to make the trip last longer?";
   const budget = "Would you like to experience the true Switzerland, but still want to stay within budget?"; 
   const family = "Traveling as a family? Whether you are traveling with young kids or adults we have it all!";
@@ -25,12 +32,23 @@ function App() {
     <>
       {/* <Routes>
         <Route path="/" element={<App/>}></Route>
-        <Route path="about" element={<About/>}></Route>
-        <Route path="contact" element={<Contact/>}></Route>    
+        <Route path="all" element={}></Route>
+        <Route path="backpacker" element={}></Route>
+        <Route path="budget" element={}></Route> 
+        <Route path="family" element={}></Route>     
       </Routes> */}
       
-      <Hero></Hero>
-      <Intro></Intro>
+      <div className='m-6'>
+        <CartButton cartCounter={cartCounter}></CartButton>
+      </div>
+      <div className=''>
+        <Hero></Hero>
+      </div>
+      
+      <div className='m-6'>
+        <Intro></Intro>
+      </div>
+      
       <div className='cards'>
         <div className='row offset-1 offset-sm-3 offset-md-1 justify-content-evenly'>
           <div className='mt-5 col'>
@@ -46,6 +64,10 @@ function App() {
             </Card>
           </div>
         </div>
+      </div>
+      {/* why are the spacing not working? */}
+      <div className='mt-6'>
+        <About></About>
       </div>
       
       

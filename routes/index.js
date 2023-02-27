@@ -7,29 +7,35 @@ function getExperiences(req, res) {
 }
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.send({ title: 'Express' });
 });
 
 // GET all the experiences without a filter
-router.get('/experiences', function(req, res, next) {
-  db(`SELECT * FROM experiences`)
+router.get('/experiences', async function(req, res) {
+  let sql = `SELECT * FROM experiences;`
+  let data = await db(sql)
+  res.send(data)
 });
 
-// GET all the experiences with filter category backpacker
-router.get('/experiences/:category', function(req, res, next) {
-  db(`SELECT * FROM experiences WHERE category=${req.params.categoryID}`)
-  //TODO req.query.category (question mark) or req.params.category (with the colons) -- THINK OF IT LIKE THE ID
-});
-
-// GET the about page (stil need the slash)
-router.get('/about', function(req, res, next) {
+// GET all the experiences with filter category backpacker/budget/family
+router.get('/experiences/:category', async function(req, res) {
+  // WHERE (the name of the database column) = ${req.params.category} has to match what we have in the path
+  try {
+    let sql = `SELECT experience, description, amount FROM experiences WHERE category=${req.params.category} ORDER BY experience;`
+    let data = await db(sql)
+    res.send(data)
+  } catch(err) {
+    if (!data) res.status(404).send({error: err})
+  }
   
+  //TODO not so sure how I can connect it to the frontend where when they press the show more button -- fetch
 });
 
 // GET the contact page
-router.get('/contact', function(req, res, next) {
-    
+router.get('/contact', async function(req, res, next) {
+    let sql = ``
+    await db(sql)
 });
 
 module.exports = router;

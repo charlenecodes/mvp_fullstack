@@ -11,7 +11,7 @@ const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
   password: DB_PASS,
-  database: DB_NAME || "experienceCH",
+  database: DB_NAME,
   multipleStatements: true
 });
 
@@ -19,7 +19,18 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 
-  let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
+  let sql = `CREATE TABLE categories (
+    category VARCHAR(20) NOT NULL,
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT
+  ); 
+  
+  CREATE TABLE experiences (
+      id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+      experience VARCHAR(50), 
+      info VARCHAR(2000), 
+      categoryID INT
+  );`;
+
 
   con.query(sql, function (err, result) {
     if (err) throw err;
@@ -28,7 +39,18 @@ con.connect(function(err) {
     console.log("Closing...");
   });
 
-  con.end();
+  
+
+   // with the package fs this will preload the experiences table from the experiences.sql
+   let sqlLoad = fs.readFileSync(__dirname + '/experiences.sql').toString();
+   con.query(sqlLoad, function(err, result) {
+     if (err) throw err;
+     console.log("Table creation 'users' was successful!");
+ 
+     console.log("Closing...");
+   });
+
+   con.end();
 });
 
 
