@@ -19,7 +19,10 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 
-  let sql = ` DROP TABLE IF EXISTS categories; DROP TABLE IF EXISTS experiences; DROP TABLE IF EXISTS cart;
+  let sql = ` 
+  SET foreign_key_checks = 0;
+  DROP TABLE IF EXISTS categories; DROP TABLE IF EXISTS experiences; DROP TABLE IF EXISTS cart;
+  SET foreign_key_checks = 1;
   
   CREATE TABLE categories (
     category VARCHAR(20) NOT NULL,
@@ -35,6 +38,8 @@ con.connect(function(err) {
       img VARCHAR(1000) NOT NULL,
       categoryID INT NOT NULL,
       amount INT NOT NULL
+
+      
   );`;
 
 

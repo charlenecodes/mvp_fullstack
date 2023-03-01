@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 
 // GET all the experiences without a filter
 router.get('/experiences', async function(req, res) {
-  let sql = `SELECT experience, info, amount, categoryID FROM experiences ORDER BY experience;`
+  let sql = `SELECT experience, info, amount, img, categoryID FROM experiences ORDER BY experience;`
   let data = await db(sql)
   res.send(data)
 });
@@ -36,28 +36,68 @@ router.get('/experiences/:categoryID', async function(req, res) {
 
 // * need to get the item ID from the experiences table connected to the cart LEFT JOIN the two tables if the items match? then return the ID
 
-// ADD to cart; needs to connect 
+//* FOR THE CART
+
+// this is our middleware - we want to use this to decrease the repetition in our code
+async function getExperiences(req, res) {
+  let data = await db(sql)
+  res.send(data)
+}
+
+// get the cart
 // ? How do I reflect that in the frontend that there are no items in the cart?
 router.get('/cart/:id', async function(req, res) {
-  
-  let sql = `SELECT * FROM cart;`
-  let data = await db(sql)
-  res.status(200).send(data)
+  try {
+    let sql = `SELECT * FROM cart;`
+    let data = await db(sql)
+    if (!data) {
+      res.send("You have no items in your cart")
+    } else {
+      res.status(200).send(data)
+    }
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+});
+
+// ADD to cart; needs to connect - do I want to use the item id of the experience? or should I create a new auto_increment id for the item?
+router.post('/cart/:id', async function(req, res) {
+  try {
+    // these have to match the frontend otherwise it will not work!
+    const { amount, experiences, name } = req.body;
+    let sql = `INSERT INTO cart ;`
+    let data = await db(sql)
+    if (!data) {
+      res.send("You have no items in your cart")
+    } else {
+      res.status(200).send(data)
+    }
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
 });
 
 // DELETE from cart
-router.get('/cart/:id', async function(req, res) {
-  let sql = `DELETE * FROM cart;`
-  let data = await db(sql)
-  res.status(200).send(data)
-});
-
-// GET the cart page
-// ? HOW to show that there are no items in the cart yet?
-router.get('/cart', async function(req, res) {
-    let sql = `SELECT item, quantity FROM cart;`
+router.delete('/cart/:id', async function(req, res) {
+  try {
+    // compare id from the database with the one in the request/url parameter
+    let sql = `DELETE * FROM cart WHERE id=${req.params.id};`
     let data = await db(sql)
     res.status(200).send(data)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+});
+
+// Edit the quantity of the experience
+router.put('/cart/:id', async function(req, res) {
+  try {
+    let sql = `SELECT * FROM cart WHERE id=${req.params.id};`
+    let data = await db(sql)
+    res.status(200).send(data)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
 });
 
 module.exports = router;
