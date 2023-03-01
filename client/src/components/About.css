@@ -1,8 +1,21 @@
-a {
+#about a {
     color: #FC5F5F;
 }
 
-a:hover {
+#about a:hover {
+    color: #F9F9F9;
+    background-color: #FC5F5F;
+    padding: 5px 5px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+ a#link {
+    color: #FC5F5F;
+}
+
+a#link:hover {
     color: #F9F9F9;
     background-color: #FC5F5F;
     padding: 5px 5px;

@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-// import {
-//   Routes, 
-//   Route, 
-//   Link
-// } from 'react-router-dom';
 import './App.css';
 import CartButton from './components/CartButton';
 import Card from './components/Card';
 import Hero from './components/Hero';
 import Intro from './components/Intro';
 import About from './components/About';
-// import Contact from "./components/Contact";
+import View from './components/View';
+// import Experiences from './components/Experiences';
 
+function showExperiences() {
 
+}
 
 // the handleClickAdd function will be for the add to cart buttons
 function handleClickAdd(){
@@ -38,9 +36,9 @@ function App() {
     try {
       // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
       let results = await fetch(`/experiences`)
-      let data = await results.json();
-      // console.log(data)
-      setExperiences(data)
+      let allExperiences = await results.json();
+      console.log(experiences.data)
+      setExperiences(allExperiences.data)
     } catch(err) {
       console.log(err)
     }
@@ -60,17 +58,12 @@ function App() {
 
   return (
     <>
-      {/* <Routes>
-        <Route path="/" element={<App/>}></Route>
-        <Route path="all" element={}></Route>
-        <Route path="backpacker" element={}></Route>
-        <Route path="budget" element={}></Route> 
-        <Route path="family" element={}></Route>     
-      </Routes> */}
-      
       <div className=''>
         <CartButton cartCounter={cartCounter}></CartButton>
       </div>
+
+      <h4 className='text-center'>Experience<span style={{color: "#FC5F5F"}}>Switzerland</span></h4>
+
       <div className=''>
         <Hero></Hero>
       </div>
@@ -96,27 +89,49 @@ function App() {
         </div>
       </div>
 
-      {/* temporary placement of all experiences - need to be in its own page, create a new component */}
-      <div>
-        {experiences.map(experience => (
-          <div key={experience.id}>
-            <img src={experience.img}></img>
-            <h4>{experience.name}</h4>
-            <p>{experience.info}</p>
-          </div>
-        )
-          
-        )}
+      <div id='experiences' className='mt-5'>
+        <View></View>
       </div>
 
+      {/* temporary placement of all experiences - need to be in its own page, create a new component */}
       <br/>
-      <br/>
+      
+      <div className='justify-content-evenly'>
+        {experiences.map(experience => (
+          <div className="d-flex justify-content-center mb-4" key={experience.id}>
+            <br/>
+              <div className='container-experiences border rounded' style={{maxWidth: "70vw"}}>
+                {/* first row - title */}
+                <div className='row mx-auto pt-4'>
+                  <h4 className='col text-center'>{experience.experience}</h4>
+                </div>
+                {/* second row - img/info/price */}
+                <div className='row p-3 pt-1'>
+                    <img className="col" src={experience.img} style={{width: "400px", height: "400px", objectFit: "cover"}}></img>
+                    <p className='col text-start mt-2'>{experience.info}
+                    <p>{/* just for spacing */}</p>
+                    <p className='d-flex justify-content-end'><strong>Price: CHF {experience.amount}.00</strong></p>
+                    </p>
+                </div>
+                <div className='row pb-3 d-flex justify-content-center'>
+                  <button className='col-2 col-sm-4 col-m-2 col-lg-2'>Add to cart</button>
+                </div>
+
+              </div>
+          </div>
+        ))}
+      </div>
+      
+
+  
       {/* why are the Bootstrap spacing not working? */}
-      <div className='mt-6'>
+      <div className='m-6 p-6'>
         <About></About>
       </div>
       <br/>
-      <br/>
+      <div className='justify-content-evenly'>
+        <h5 className='text-center' style={{fontFamily: "'DM Serif', serif"}}>Experience<span style={{color: "#FC5F5F"}}>Switzerland</span></h5>
+      </div>
       
       
     </>
