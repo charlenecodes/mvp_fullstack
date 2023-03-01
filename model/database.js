@@ -19,16 +19,22 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 
-  let sql = `CREATE TABLE categories (
+  let sql = ` DROP TABLE IF EXISTS categories; DROP TABLE IF EXISTS experiences; DROP TABLE IF EXISTS cart;
+  
+  CREATE TABLE categories (
     category VARCHAR(20) NOT NULL,
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT
+    id INTEGER NOT NULL PRIMARY KEY
   ); 
+  
+  
   
   CREATE TABLE experiences (
       id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-      experience VARCHAR(50), 
-      info VARCHAR(2000), 
-      categoryID INT
+      experience VARCHAR(50) NOT NULL, 
+      info VARCHAR(2000) NOT NULL,
+      img VARCHAR(1000) NOT NULL,
+      categoryID INT NOT NULL,
+      amount INT NOT NULL
   );`;
 
 
@@ -45,7 +51,7 @@ con.connect(function(err) {
    let sqlLoad = fs.readFileSync(__dirname + '/experiences.sql').toString();
    con.query(sqlLoad, function(err, result) {
      if (err) throw err;
-     console.log("Table creation 'users' was successful!");
+     console.log("Loading experiences was successful!");
  
      console.log("Closing...");
    });
