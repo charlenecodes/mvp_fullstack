@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import {
 //   Routes, 
 //   Route, 
@@ -10,15 +10,45 @@ import Card from './components/Card';
 import Hero from './components/Hero';
 import Intro from './components/Intro';
 import About from './components/About';
-// import Button from './components/Button';
 // import Contact from "./components/Contact";
 
+
+
+// the handleClickAdd function will be for the add to cart buttons
+function handleClickAdd(){
+  
+}
+
+// the handleClickRemove function will be for the X buttons that remove items from cart
+function handleClickRemove(){
+  
+}
+
+// each time the handleClick functions is called, increase/decrease the count in the cart
+function cartCounter() {
+  let count = 0;
+  count++;
+  return count;
+}
+
 function App() {
-  async function cartCounter() {
-    let response = awa
-    let count = CartButton.length;
-    return count;
-  }
+  let [experiences, setExperiences] = useState([])
+
+  const fetchExperiences = async () => {
+    try {
+      // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
+      let results = await fetch(`/experiences`)
+      let data = await results.json();
+      // console.log(data)
+      setExperiences(data)
+    } catch(err) {
+      console.log(err)
+    }
+  };
+    
+  useEffect(() => {
+    fetchExperiences();
+  }, []);
 
   const backpacker = "On a day trip to Switzerland or penny-pinching to make the trip last longer?";
   const budget = "Would you like to experience the true Switzerland, but still want to stay within budget?"; 
@@ -38,14 +68,14 @@ function App() {
         <Route path="family" element={}></Route>     
       </Routes> */}
       
-      <div className='m-6'>
+      <div className=''>
         <CartButton cartCounter={cartCounter}></CartButton>
       </div>
       <div className=''>
         <Hero></Hero>
       </div>
       
-      <div className='m-6'>
+      <div>
         <Intro></Intro>
       </div>
       
@@ -65,10 +95,28 @@ function App() {
           </div>
         </div>
       </div>
-      {/* why are the spacing not working? */}
+
+      {/* temporary placement of all experiences - need to be in its own page, create a new component */}
+      <div>
+        {experiences.map(experience => (
+          <div key={experience.id}>
+            <img src={experience.img}></img>
+            <h4>{experience.name}</h4>
+            <p>{experience.info}</p>
+          </div>
+        )
+          
+        )}
+      </div>
+
+      <br/>
+      <br/>
+      {/* why are the Bootstrap spacing not working? */}
       <div className='mt-6'>
         <About></About>
       </div>
+      <br/>
+      <br/>
       
       
     </>
