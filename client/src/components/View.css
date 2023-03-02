@@ -8,7 +8,7 @@ html {
     height: 100vh;
     /* shorthand background: linear-gradient, url, background-repeat, background-position / background-size */
     /* use linear-gradient to add a darken background effect to the image to make the text easier to read - make sure to click the box to change the opacity */
-    background: linear-gradient(rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.161)), url("https://images.pexels.com/photos/5210148/pexels-photo-5210148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") no-repeat center / cover;
+    background: linear-gradient(rgba(255, 252, 252, 0.36), rgba(255, 255, 255, 0.161)), url("https://images.pexels.com/photos/5425243/pexels-photo-5425243.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") no-repeat center / cover;
 }
 
 /* contains everything inside the hero image */
@@ -23,9 +23,9 @@ html {
     /* makes them line up on the left side (horizontal) */
     justify-content: left;
     /* text-align makes everything go to the center */
-    text-align: left;
+    text-align: end;
     color: #F9F9F9;
-    text-shadow: -6px -3px 22px #292929;
+    text-shadow: -6px -3px 22px #51554f;
 }
 
 /* since we set the HTML font-size to 18px the rem is the value we multiply this by (em is just for the container we set it in) */

@@ -10,48 +10,45 @@ import Experiences from './components/Experiences';
 import Backpacker from './components/Backpacker';
 import Budget from './components/Budget';
 import Family from './components/Family';
+import Contact from './components/Contact';
 
-// the handleClickAdd function will be for the add to cart buttons
-function handleClickAdd(){
-  
-}
-
-// the handleClickRemove function will be for the X buttons that remove items from cart
-function handleClickRemove(){
-  
-}
-
-// each time the handleClick functions is called, increase/decrease the count in the cart
-function cartCounter() {
-  let count = 0;
-  count++;
-  return count;
-}
 
 function App() {
+  // * FOR THE CART
+  let [cart, setCart] = useState([])
+
+  const showCart = () => {
+    console.log("when clicked show cart page")
+  }
+
+  // * FOR SHOWING EXPERIENCES
   let [experiences, setExperiences] = useState([])
   let [backpackerExp, setBackpackerExp] = useState([])
   let [budgetExp, setBudgetExp] = useState([])
   let [famExp, setFamExp] = useState([])
 
+  // * FOR THE SHOW MORE BUTTONS IN THE CARD
+  let [active, setActive] = useState("showAll")
+
+  // * FETCHING FROM MYSQL DATABASE
   const fetchExperiences = async () => {
     try {
       // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
       let results = await fetch(`/experiences`)
       let allExperiences = await results.json();
-      console.log(allExperiences.data)
+      // console.log(allExperiences.data)
       setExperiences(allExperiences.data)
     } catch(err) {
       console.log(err)
     }
   };
 
+  // TODO: there is probably a way to refactor this so we do not have to call them separately
   const fetchBackpacker = async () => {
     try {
-      // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
       let results = await fetch(`/experiences/1`)
       let allBackpacker = await results.json();
-      console.log(allBackpacker.data)
+      // console.log(allBackpacker.data)
       setBackpackerExp(allBackpacker.data)
     } catch(err) {
       console.log(err)
@@ -60,10 +57,9 @@ function App() {
   
   const fetchBudget = async () => {
     try {
-      // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
       let results = await fetch(`/experiences/2`)
       let allBudget = await results.json();
-      console.log(allBudget.data)
+      // console.log(allBudget.data)
       setBudgetExp(allBudget.data)
     } catch(err) {
       console.log(err)
@@ -72,22 +68,41 @@ function App() {
 
   const fetchFam = async () => {
     try {
-      // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
       let results = await fetch(`/experiences/3`)
       let allFam = await results.json();
-      console.log(allFam.data)
+      // console.log(allFam.data)
       setFamExp(allFam.data)
     } catch(err) {
       console.log(err)
     }
   };
 
+  // useEffect loads at the beginning
   useEffect(() => {
     fetchExperiences();
     fetchBackpacker();
     fetchBudget();
     fetchFam();
+    
   }, []);
+
+
+  useEffect(() => {
+    console.log(cart)
+    console.log(cart.length)
+  }, [cart])
+  
+
+  // * this function will be for the add to cart buttons; 
+  // * I passed this function onto the Experiences, Backpacker, Budget, and Family components and it works together with the map function to return the info from the clickedExperience so we can display it to the cart
+  const addToCart = (clickedExperience) => {
+    // console.log(clickedExperience)
+    setCart([...cart, clickedExperience])
+  }
+
+
+
+  // TODO/Feature extension refactor these code so they can be passed down to the cards in a simpler way (maybe as an array)
 
   const backpacker = "On a day trip to Switzerland or penny-pinching to make the trip last longer?";
   const budget = "Would you like to experience the true Switzerland, but still want to stay within budget?"; 
@@ -99,57 +114,70 @@ function App() {
 
   return (
     <>
-      <div className=''>
-        <CartButton cartCounter={cartCounter}></CartButton>
-      </div>
 
-      <h4 className='text-center'>Experience<span style={{color: "#FC5F5F"}}>Switzerland</span></h4>
+      {
+        (cart.length > 0) && 
+        <div className=''>
+          <CartButton cart={cart} addToCart={addToCart} showCart={showCart}></CartButton>
+        </div>
+      }
+      
 
-      <div className=''>
+      <h4 className='text-center mt-2'>Experience<span style={{color: "#FC5F5F"}}>Switzerland</span></h4>
+
+      <div id="top">
         <Hero></Hero>
       </div>
       
       <div>
         <Intro></Intro>
       </div>
+
+      
       
       <div className='cards'>
         <div className='row offset-1 offset-sm-3 offset-md-1 justify-content-evenly'>
           <div className='mt-5 col'>
-            <Card category="Backpacker" description={backpacker} img={backpackerImg}>
+            {/* pass the setActive to each card so the buttons can use them */}
+            <Card setActive={setActive} category="Backpacker" description={backpacker} img={backpackerImg}>
             </Card>
           </div>
           <div className='mt-5 col'>
-            <Card category="Budget" description={budget} img={budgetImg}>
+            <Card setActive={setActive} category="Budget" description={budget} img={budgetImg}>
             </Card>
           </div>
           <div className='mt-5 col'>
-            <Card category="Family" description={family} img={familyImg}>
+            <Card setActive={setActive} category="Family" description={family} img={familyImg}>
             </Card>
           </div>
         </div>
       </div>
 
+      {/* temporary placement of all experiences - need to be in its own page, create a new component */}
       <div id='experiences' className='mt-5'>
         <View></View>
         {/* need to set up react router to view this as a separate page */}
-        <Experiences experiences={experiences}></Experiences>
-        <Backpacker id='Backpacker' bp={backpackerExp}></Backpacker>
-        <Budget id='Budget' bu={budgetExp}></Budget>
-        <Family id='Family' fa={famExp}></Family>
+          <div id="categories">
+            { active === "showAll" && <Experiences addToCart={addToCart} experiences={experiences}></Experiences>}
+            { active === "Backpacker" && <Backpacker id='Backpacker' addToCart={addToCart} bp={backpackerExp}></Backpacker> }
+            { active === "Budget" && <Budget id='Budget' addToCart={addToCart} bu={budgetExp}></Budget> }
+            { active === "Family" && <Family id='Family' addToCart={addToCart} fa={famExp}></Family> }
+          </div>
+        
       </div>
 
-      {/* temporary placement of all experiences - need to be in its own page, create a new component */}
+      <div>
+        <Contact></Contact>
+      </div>
       <br/>
-      
-      
-      
-
-  
       {/* why are the Bootstrap spacing not working? */}
       <div className='m-6 p-6'>
         <About></About>
       </div>
+      <br/>
+      <div className='text-center m-6'>
+        <a href="#top" ><button className=''>Back to top</button></a>
+      </div >
       <br/>
       <div className='justify-content-evenly'>
         <h5 className='text-center' style={{fontFamily: "'DM Serif', serif"}}>Experience<span style={{color: "#FC5F5F"}}>Switzerland</span></h5>

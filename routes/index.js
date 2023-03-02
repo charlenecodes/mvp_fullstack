@@ -24,8 +24,9 @@ router.get('/experiences', async function(req, res) {
 router.get('/experiences/:categoryID', async function(req, res) {
   // WHERE (the name of the database column) = ${req.params.category} has to match what we have in the path
   try {
-    let sql = `SELECT experience, info, amount, categoryID FROM experiences LEFT JOIN categories ON experiences.categoryID=categories.id WHERE categoryID=${req.params.categoryID};`
+    let sql = `SELECT * FROM experiences LEFT JOIN categories ON experiences.categoryID=categories.id WHERE categoryID=${req.params.categoryID};`
     let data = await db(sql)
+    console.log(data)
     res.status(200).send(data)
   } catch(err) {
     if (!data) res.status(404).send({error: err.message})
@@ -60,8 +61,8 @@ router.get('/cart/:id', async function(req, res) {
   }
 });
 
-// ADD to cart; needs to connect - do I want to use the item id of the experience? or should I create a new auto_increment id for the item?
-router.post('/cart/:id', async function(req, res) {
+// ADD to cart; I want to use the item id of the experience
+router.post('/cart/:experience_id', async function(req, res) {
   try {
     // these have to match the frontend otherwise it will not work!
     const { amount, experiences, name } = req.body;

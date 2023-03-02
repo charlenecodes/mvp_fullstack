@@ -10,3 +10,19 @@ img {
 .card-text {
     color: #5D6167;
 }
+
+button {
+	background-color: #FC5F5F;
+	border: 1px solid #FC5F5F;
+	border-radius: 50px;
+	padding: 3px 36px;
+	color: #F9F9F9;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 400;
+}
+
+button:hover {
+	background-color: #F9F9F9;
+	border: 1px solid #FC5F5F;
+	color: #FC5F5F;
+}
