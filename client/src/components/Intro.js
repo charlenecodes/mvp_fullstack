@@ -10,7 +10,7 @@ export default function Intro(){
             <span className="material-icons-outlined">sentiment_satisfied_alt
 </span> */}
             {/* I want these to appear as three columns on large screens and one column on small devices, but the bootstrap styling wasn't working */}
-            <div className="row align-items-start text-center p-5">
+            <div id="intro" className="row align-items-start text-center m-4">
                 <div className="col">
                     <div style={{color: "#FC5F5F", fontFamily: "'DM Serif Display', serif", fontSize: "1.5rem"}}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-airplane-fill" viewBox="0 0 16 16">

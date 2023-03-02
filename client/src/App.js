@@ -6,11 +6,10 @@ import Hero from './components/Hero';
 import Intro from './components/Intro';
 import About from './components/About';
 import View from './components/View';
-// import Experiences from './components/Experiences';
-
-function showExperiences() {
-
-}
+import Experiences from './components/Experiences';
+import Backpacker from './components/Backpacker';
+import Budget from './components/Budget';
+import Family from './components/Family';
 
 // the handleClickAdd function will be for the add to cart buttons
 function handleClickAdd(){
@@ -31,21 +30,63 @@ function cartCounter() {
 
 function App() {
   let [experiences, setExperiences] = useState([])
+  let [backpackerExp, setBackpackerExp] = useState([])
+  let [budgetExp, setBudgetExp] = useState([])
+  let [famExp, setFamExp] = useState([])
 
   const fetchExperiences = async () => {
     try {
       // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
       let results = await fetch(`/experiences`)
       let allExperiences = await results.json();
-      console.log(experiences.data)
+      console.log(allExperiences.data)
       setExperiences(allExperiences.data)
     } catch(err) {
       console.log(err)
     }
   };
-    
+
+  const fetchBackpacker = async () => {
+    try {
+      // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
+      let results = await fetch(`/experiences/1`)
+      let allBackpacker = await results.json();
+      console.log(allBackpacker.data)
+      setBackpackerExp(allBackpacker.data)
+    } catch(err) {
+      console.log(err)
+    }
+  };
+  
+  const fetchBudget = async () => {
+    try {
+      // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
+      let results = await fetch(`/experiences/2`)
+      let allBudget = await results.json();
+      console.log(allBudget.data)
+      setBudgetExp(allBudget.data)
+    } catch(err) {
+      console.log(err)
+    }
+  };
+
+  const fetchFam = async () => {
+    try {
+      // since we are grabbing this from our database and we don't have any other APIs, we only have to specify what comes after our port
+      let results = await fetch(`/experiences/3`)
+      let allFam = await results.json();
+      console.log(allFam.data)
+      setFamExp(allFam.data)
+    } catch(err) {
+      console.log(err)
+    }
+  };
+
   useEffect(() => {
     fetchExperiences();
+    fetchBackpacker();
+    fetchBudget();
+    fetchFam();
   }, []);
 
   const backpacker = "On a day trip to Switzerland or penny-pinching to make the trip last longer?";
@@ -75,7 +116,7 @@ function App() {
       <div className='cards'>
         <div className='row offset-1 offset-sm-3 offset-md-1 justify-content-evenly'>
           <div className='mt-5 col'>
-            <Card category="Backpacker" description={backpacker} img = {backpackerImg}>
+            <Card category="Backpacker" description={backpacker} img={backpackerImg}>
             </Card>
           </div>
           <div className='mt-5 col'>
@@ -91,36 +132,17 @@ function App() {
 
       <div id='experiences' className='mt-5'>
         <View></View>
+        {/* need to set up react router to view this as a separate page */}
+        <Experiences experiences={experiences}></Experiences>
+        <Backpacker id='Backpacker' bp={backpackerExp}></Backpacker>
+        <Budget id='Budget' bu={budgetExp}></Budget>
+        <Family id='Family' fa={famExp}></Family>
       </div>
 
       {/* temporary placement of all experiences - need to be in its own page, create a new component */}
       <br/>
       
-      <div className='justify-content-evenly'>
-        {experiences.map(experience => (
-          <div className="d-flex justify-content-center mb-4" key={experience.id}>
-            <br/>
-              <div className='container-experiences border rounded' style={{maxWidth: "70vw"}}>
-                {/* first row - title */}
-                <div className='row mx-auto pt-4'>
-                  <h4 className='col text-center'>{experience.experience}</h4>
-                </div>
-                {/* second row - img/info/price */}
-                <div className='row p-3 pt-1'>
-                    <img className="col" src={experience.img} style={{width: "400px", height: "400px", objectFit: "cover"}}></img>
-                    <p className='col text-start mt-2'>{experience.info}
-                    <p>{/* just for spacing */}</p>
-                    <p className='d-flex justify-content-end'><strong>Price: CHF {experience.amount}.00</strong></p>
-                    </p>
-                </div>
-                <div className='row pb-3 d-flex justify-content-center'>
-                  <button className='col-2 col-sm-4 col-m-2 col-lg-2'>Add to cart</button>
-                </div>
-
-              </div>
-          </div>
-        ))}
-      </div>
+      
       
 
   
