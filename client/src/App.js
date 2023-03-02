@@ -158,7 +158,7 @@ function App() {
         <View></View>
         {/* need to set up react router to view this as a separate page */}
           <div id="categories">
-            { active === "showAll" && <Experiences addToCart={addToCart} experiences={experiences}></Experiences>}
+            { active === "showAll" && <Experiences active="active" addToCart={addToCart} experiences={experiences}></Experiences>}
             { active === "Backpacker" && <Backpacker id='Backpacker' addToCart={addToCart} bp={backpackerExp}></Backpacker> }
             { active === "Budget" && <Budget id='Budget' addToCart={addToCart} bu={budgetExp}></Budget> }
             { active === "Family" && <Family id='Family' addToCart={addToCart} fa={famExp}></Family> }

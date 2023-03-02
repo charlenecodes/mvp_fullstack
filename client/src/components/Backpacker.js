@@ -15,7 +15,7 @@ export default function Backpacker({bp, addToCart}){
                         </div>
                         {/* second row - img/info/price */}
                         <div className='row p-3 pt-1'>
-                            <img alt={backpacker.experience} className="col" src={backpacker.img} style={{width: "400px", height: "400px", objectFit: "cover"}}></img>
+                            <img alt={backpacker.experience} className="col" src={backpacker.img} style={{width: "400px", height: "400px", objectFit: "cover", borderRadius: "12px 50px"}}></img>
                             <p className='col text-start mt-2'>{backpacker.info}
                             <p>{/* just for spacing */}</p>
                             <p className='d-flex justify-content-end'><strong>Price: CHF {backpacker.amount}.00</strong></p>

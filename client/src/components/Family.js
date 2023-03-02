@@ -15,7 +15,7 @@ export default function Family({fa, addToCart}){
                         </div>
                         {/* second row - img/info/price */}
                         <div className='row p-3 pt-1'>
-                            <img alt={family.experience} className="col" src={family.img} style={{width: "400px", height: "400px", objectFit: "cover"}}></img>
+                            <img alt={family.experience} className="col" src={family.img} style={{width: "400px", height: "400px", objectFit: "cover", borderRadius: "12px 50px"}}></img>
                             <p className='col text-start mt-2'>{family.info}
                             <p>{/* just for spacing */}</p>
                             <p className='d-flex justify-content-end'><strong>Price: CHF {family.amount}.00</strong></p>

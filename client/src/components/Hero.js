@@ -1,7 +1,7 @@
 import React from "react"
 import './Hero.css';
 
-export default function Hero(){
+export default function Hero({setActive}){
     return(
         <>
             <div className="row">
@@ -10,8 +10,8 @@ export default function Hero(){
                         <div className="info">
                             <h4>Planning a trip to Switzerland?</h4>
                             <h1 className="mt-2">Experience Switzerland on a budget</h1>
-                            <a href="#intro">
-                                <button className="mt-2">
+                            <a href="#experiences">
+                                <button onClick={setActive} className="mt-2">
                                     Explore 
                                 </button>
                             </a>

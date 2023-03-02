@@ -15,7 +15,7 @@ export default function Budget({bu, addToCart}){
                         </div>
                         {/* second row - img/info/price */}
                         <div className='row p-3 pt-1'>
-                            <img alt={budget.experience} className="col" src={budget.img} style={{width: "400px", height: "400px", objectFit: "cover"}}></img>
+                            <img alt={budget.experience} className="col" src={budget.img} style={{width: "400px", height: "400px", objectFit: "cover", borderRadius: "12px 50px"}}></img>
                             <p className='col text-start mt-2'>{budget.info}
                             <p>{/* just for spacing */}</p>
                             <p className='d-flex justify-content-end'><strong>Price: CHF {budget.amount}.00</strong></p>
