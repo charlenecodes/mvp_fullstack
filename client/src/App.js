@@ -126,7 +126,7 @@ function App() {
       <h4 className='text-center mt-2'>Experience<span style={{color: "#FC5F5F"}}>Switzerland</span></h4>
 
       <div id="top">
-        <Hero></Hero>
+        <Hero setActive={setActive}></Hero>
       </div>
       
       <div>
@@ -164,6 +164,10 @@ function App() {
             { active === "Family" && <Family id='Family' addToCart={addToCart} fa={famExp}></Family> }
           </div>
         
+      </div>
+
+      <div className="text-center mb-4">
+        { (active !== "showAll") && <a href='#categories'><button onClick={() => setActive("showAll")}>Show all experiences</button></a> } 
       </div>
 
       <div>
