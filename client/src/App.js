@@ -166,11 +166,15 @@ function App() {
         
       </div>
 
-      <div className="text-center mb-4">
+      <div className="text-center m-4">
         { (active !== "showAll") && <a href='#categories'><button onClick={() => setActive("showAll")}>Show all experiences</button></a> } 
       </div>
 
-      <div>
+      <div className='text-center m-6'>
+        <a href="#intro" style={{color: "teal", fontSize: ".8rem"}}>Back to categories</a>
+      </div >
+
+      <div className='mt-4'>
         <Contact></Contact>
       </div>
       <br/>
@@ -179,9 +183,11 @@ function App() {
         <About></About>
       </div>
       <br/>
+
       <div className='text-center m-6'>
-        <a href="#top" ><button className=''>Back to top</button></a>
+        <a href="#top" style={{color: "teal", fontSize: ".8rem"}}>Back to top</a>
       </div >
+
       <br/>
       <div className='justify-content-evenly'>
         <h5 className='text-center' style={{fontFamily: "'DM Serif', serif"}}>Experience<span style={{color: "#FC5F5F"}}>Switzerland</span></h5>

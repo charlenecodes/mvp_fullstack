@@ -3,7 +3,7 @@ import React from "react";
 export default function Experiences({experiences, addToCart}){
     return(
         <>
-             <h1 className="text-center my-4">All Experiences</h1>
+             { (experiences.length > 0) && <h1 className="text-center my-4">All Experiences</h1> }
              <div className='justify-content-evenly'>
                 {experiences.map(experience => (
                 <div className="d-flex justify-content-center mb-4" key={experience.id}>

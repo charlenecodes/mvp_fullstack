@@ -37,7 +37,7 @@ export default function Intro(){
             </div>
             
 
-            <div className="px-3">
+            <div id="intro" className="px-3">
                 <h1 style={{color: "color: #2B2F38", textAlign: "center", margin: "20px 10px"}}>What kind of travel are you looking for?</h1>
                 <p>We have organized our trips into different categories, based on different budgets to suit your needs!</p>
                 <p>You can mix and match the experiences to make your own trip, especially to match the number of days you are staying in Switzerland.</p>
