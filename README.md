@@ -1,5 +1,3 @@
-# mvp_fullstack
-
 # Full Stack Experience Switzerland App
 
 This is the first MVP project that I created independently with tools and help provided by the CodeOp Fullstack Bootcamp. It is an e-shop that displays different experiences, which can further be filtered into different categories. There are many components created in the React app to show the home page. MySQL was used to create a database where the information used for the website are stored.
