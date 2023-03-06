@@ -31,8 +31,6 @@ router.get('/experiences/:categoryID', async function(req, res) {
   } catch(err) {
     if (!data) res.status(404).send({error: err.message})
   }
-  
-  //TODO not so sure how I can connect it to the frontend where when they press the show more button -- fetch
 });
 
 // * need to get the item ID from the experiences table connected to the cart LEFT JOIN the two tables if the items match? then return the ID
